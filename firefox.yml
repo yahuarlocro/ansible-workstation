@@ -1,0 +1,35 @@
+- name: install software packages
+  hosts: localhost 
+  become: true
+  tasks:
+    #    - name: remove firefox snap package
+    #      snap:
+    #        name: firefox
+    #        state: absent
+    #    - name: add firefox apt repository key.
+    #      get_url:
+    #        url: "{{ jenkins_repo_key_url }}"
+    #        dest: /etc/apt/trusted.gpg.d/jenkins.asc
+    #        mode: '0644'
+    #        force: true
+    #    - name: add mozilla ppa repository
+    #      apt_repository:
+    #        repo: ppa:mozillateam/ppa
+    #    - name: install mozilla firefox
+    #      apt:
+    #        name: firefox-esr
+    #        update_cache: yes
+    - name: grep mozilla signing key
+      shell: apt-key list | grep -B 1 Mozilla
+      changed_when: false
+      register: result
+
+    - debug:
+        msg: "{{ result.stdout }}"
+
+          #    - name: solve apt keyring deprecation
+          #      apt_key:
+          #        url: "http://ppa.launchpad.net/mozillateam/ppa/ubuntu/dists/jammy/InRelease"
+          #        dest: /etc/apt/trusted.gpg.d/firefox.asc
+          #        mode: '0644'
+
