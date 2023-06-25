@@ -1,4 +1,4 @@
-- name: install software packages
+- name: install firefox extended support release
   hosts: localhost 
   become: true
   tasks:
