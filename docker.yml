@@ -1,4 +1,4 @@
-- name: install vscode
+- name: install docker community edition
   hosts: localhost 
   become: true
   tasks:
