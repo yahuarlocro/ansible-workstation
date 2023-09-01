@@ -47,4 +47,6 @@
     - name: install htop
       apt:
         name: htop
- 
+    - name: install xclip
+      apt:
+        name: xclip
