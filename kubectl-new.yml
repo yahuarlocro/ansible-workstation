@@ -1,4 +1,4 @@
-- name: install kubectl
+- name: install vscode
   hosts: localhost 
   become: true
   tasks:
@@ -10,12 +10,10 @@
       ansible.builtin.apt:
         name: curl
           
-    - name: Download the public signing key for the Kubernetes package repositories.
+    - name: download google public signing key
       ansible.builtin.get_url:
-        # url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
-        url: "https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key"
+        url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
         dest: /etc/apt/keyrings/kubectl.asc
-        # dest: /etc/apt/keyrings/kubectl.gpg
         mode: '0644'
         force: true
 
@@ -28,9 +26,7 @@
 
     - name: add kubernetes apt repository 
       ansible.builtin.apt_repository:
-        # repo: "deb [arch={{ dpkg_arch }} signed-by=/etc/apt/keyrings/kubectl.asc] https://apt.kubernetes.io/ kubernetes-xenial main"
-        repo: "deb [arch={{ dpkg_arch }} signed-by=/etc/apt/keyrings/kubectl.asc] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /"
-        # repo: "deb [signed-by=/etc/apt/keyrings/kubectl.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /"
+        repo: "deb [arch={{ dpkg_arch }} signed-by=/etc/apt/keyrings/kubectl.asc] https://apt.kubernetes.io/ kubernetes-xenial main"
         state: present
         filename: kubectl
         update_cache: true
